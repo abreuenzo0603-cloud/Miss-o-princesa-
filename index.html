@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Missão da Minha Princesa 👑</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--p1:#ffe4ec;--p2:#ffc2d4;--p3:#ff8fb1;--red:#d6334f;--cream:#fff7ef;--ink:#4a2a33;--mut:#8a6670}
+*{box-sizing:border-box}
+body{margin:0;font:600 16px/1.55 'Nunito',system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at 15% 0,#fff 0,var(--p1) 45%,#ffd6e3 100%) fixed;min-height:100vh;padding:env(safe-area-inset-top,0) 14px 96px}
+header{text-align:center;padding:26px 8px 8px}
+h1{font:italic 500 clamp(1.9rem,7vw,2.8rem)/1.15 'Playfair Display',serif;margin:0;color:var(--red)}
+header p{margin:6px 0 0;color:var(--mut)}
+main{max-width:620px;margin:14px auto}
+.card{background:var(--cream);border-radius:22px;padding:18px 18px;margin-bottom:14px;box-shadow:0 8px 24px rgba(214,51,79,.12);border:2px solid #fff}
+h2{margin:0 0 8px;font-size:1.2rem;color:var(--red)}
+.big{font-size:3rem;font-weight:800;color:var(--red);line-height:1}
+.lvl{display:inline-block;background:var(--p2);padding:4px 14px;border-radius:30px;font-weight:800;margin:8px 0}
+.bar{height:16px;border-radius:12px;background:var(--p1);overflow:hidden;margin:6px 0}
+.bar b{display:block;height:100%;background:linear-gradient(90deg,var(--p3),var(--red));border-radius:12px;transition:width .8s}
+small,.mut{color:var(--mut);font-weight:600}
+.btn{border:0;border-radius:30px;padding:12px 22px;background:var(--red);color:#fff;font:800 1rem 'Nunito',sans-serif;cursor:pointer;box-shadow:0 6px 14px rgba(214,51,79,.3);transition:transform .2s}
+.btn:active{transform:scale(.95)}.btn.sec{background:#fff;color:var(--red);box-shadow:none;border:2px solid var(--p2)}
+.task{display:flex;gap:12px;align-items:center;padding:12px 4px;border-bottom:1px dashed var(--p2)}
+.task:last-child{border:0}
+.task input{width:28px;height:28px;accent-color:var(--red);flex:none}
+.task.done{opacity:.65}.task.done .tn{text-decoration:line-through}
+.tn{font-weight:800}.pt{margin-left:auto;background:var(--p1);color:var(--red);font-weight:800;border-radius:20px;padding:3px 12px;white-space:nowrap}
+.shop{display:grid;gap:14px}
+.rw{text-align:center}.rw .em{font-size:3rem}
+.hi{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--p2)}
+.hi:last-child{border:0}.hi .p{margin-left:auto;font-weight:800}.plus{color:#2f8f5b}.minus{color:var(--red)}
+input,textarea{width:100%;padding:11px 14px;border:2px solid var(--p2);border-radius:14px;font:600 1rem 'Nunito',sans-serif;background:#fff;color:var(--ink)}
+input:focus,textarea:focus{outline:3px solid var(--p3);border-color:transparent}
+.row{display:grid;grid-template-columns:54px 1fr 70px 44px;gap:8px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--p2)}
+.row input[data-f=d]{grid-column:1/4}
+.row .del{border:0;background:var(--p1);border-radius:12px;font-size:1.1rem;cursor:pointer}
+label{display:block;margin:10px 0 4px;font-weight:800}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:rgba(255,247,239,.95);backdrop-filter:blur(8px);border-top:2px solid var(--p2);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:10}
+nav button{border:0;background:none;font:800 .72rem 'Nunito',sans-serif;color:var(--mut);padding:4px 8px;border-radius:14px;cursor:pointer}
+nav i{display:block;font-style:normal;font-size:1.4rem}nav .on{color:var(--red);background:var(--p1)}
+#banner{max-width:620px;margin:8px auto 0;background:#fff3c9;border-radius:14px;padding:8px 14px;font-size:.85rem;display:none}
+#toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,30px);background:var(--red);color:#fff;padding:12px 20px;border-radius:30px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:.4s;z-index:40;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.hh{position:fixed;z-index:50;pointer-events:none;animation:up 1.9s ease-out forwards}
+@keyframes up{0%{opacity:0;transform:translateY(0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translateY(-220px) rotate(25deg) scale(1.2)}}
+.mod{position:fixed;inset:0;background:rgba(74,42,51,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:60;animation:f .3s}
+@keyframes f{from{opacity:0}}
+.mod .card{max-width:420px;text-align:center;margin:0;animation:pop .45s}
+@keyframes pop{from{transform:scale(.7);opacity:0}}
+.cel{background:linear-gradient(160deg,#fff,var(--p1))!important}.cel .em{font-size:4.5rem;animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(6deg)}}
+.deco{position:fixed;font-size:1.5rem;opacity:.25;pointer-events:none;z-index:0}
+main,header{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<span class="deco" style="top:12%;left:5%">🌸</span><span class="deco" style="top:30%;right:6%">✨</span><span class="deco" style="top:62%;left:7%">💗</span><span class="deco" style="top:80%;right:8%">🌷</span>
+<header><h1>Missão da Minha Princesa 👑</h1><p>Pequenas conquistas, grandes motivos para sorrir. ❤️</p></header>
+<div id="banner"></div>
+<main id="app"><div class="card">Carregando… 💗</div></main>
+<nav id="nav"></nav><div id="toast"></div><div id="modal"></div>
+
+<script>
+/* ============ CONFIGURAÇÃO (preencha para sincronizar os dois celulares) ============
+   Crie um projeto gratuito em supabase.com, rode este SQL em "SQL Editor":
+
+   create table kv(key text primary key, value jsonb not null);
+   alter table kv enable row level security;
+   create policy "ler" on kv for select using (true);
+   create policy "inserir" on kv for insert with check (true);
+   create policy "atualizar" on kv for update using (true) with check (true);
+
+   Depois copie em Project Settings > API: "Project URL" e a chave "anon public".
+   NUNCA use a chave "service_role" aqui. */
+const CONFIG={URL:'https://cmnwbjcnhpkoqlcwiykl.supabase.co',KEY:'sb_publishable_eqNKrIjVQ0nx8iXPMqhFMw_ToQQPbjt'};
+/* ===================================================================================== */
+
+const LV=[[0,'Princesa Iniciante','👑'],[100,'Princesa Dedicada','💗'],[250,'Princesa de Ouro','✨'],[500,'Rainha do Meu Coração','❤️'],[1000,'Lenda do Nosso Amor','💍']];
+const MSGS=['Você é meu presente favorito. ❤️','Mais uma conquista da minha princesa! 👑','Cada detalhe foi feito pensando em você. 💗','Parabéns, meu amor! Continue no seu ritmo. 🥹','Te amo mais a cada dia! 💖'];
+const DEF={rev:0,cfg:{nome:'Princesa',apelido:'minha princesa',pin:'',msg:'Oi, minha princesa! ❤️ Fiz este cantinho especialmente para você. Aqui, cada tarefa concluída é uma conquista e cada pontinho pode se transformar em uma surpresa. Quero que esse seja um espaço leve, divertido e cheio de carinho para nós dois. Te amo! 💗'},
+tasks:[
+{id:'t1',e:'🧽',n:'Lavar a louça',d:'Deixar a pia limpinha.',p:10},
+{id:'t2',e:'🍳',n:'Praticar uma receita e aprender algo novo',d:'Cozinhar algo diferente e se divertir.',p:15},
+{id:'t3',e:'🧼',n:'Limpar o banheiro',d:'Deixar tudo cheirosinho.',p:15},
+{id:'t4',e:'🐶',n:'Dar comida às cadelas',d:'Ração na hora certa.',p:5},
+{id:'t5',e:'💧',n:'Encher os potes de água das cadelas',d:'Água fresquinha para elas.',p:5},
+{id:'t6',e:'🧹',n:'Varrer a casa',d:'Casa limpinha e gostosa.',p:10},
+{id:'t7',e:'🛁',n:'Dar banho nas cadelas, quando necessário',d:'Banho e carinho.',p:20},
+{id:'t8',e:'🛏️',n:'Deixar o quarto organizado',d:'Cantinho arrumado.',p:10},
+{id:'t9',e:'❤️',n:'Resolver desentendimentos conversando com carinho e respeito',d:'Os dois falam e escutam, sem ninguém precisar se calar ou concordar com tudo.',p:10}],
+rewards:[
+{id:'r1',e:'🍫',n:'Chocolate surpresa',d:'Um docinho escolhido com carinho.',p:50},
+{id:'r2',e:'💌',n:'Cartinha feita à mão',d:'Palavras de amor escritas só para você.',p:100},
+{id:'r3',e:'🌹',n:'Encontro especial',d:'Um momento só nosso.',p:200},
+{id:'r4',e:'🎁',n:'Presente surpresa',d:'Um presente escolhido a dedo.',p:350}],
+log:[]};
+const TABS=[['home','🏠','Início'],['tasks','✅','Tarefas'],['shop','🎁','Loja'],['hist','📜','Histórico'],['adm','⚙️','Admin']];
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pick=a=>a[Math.floor(Math.random()*a.length)],today=()=>new Date().toLocaleDateString('sv-SE'),bal=s=>s.log.reduce((a,l)=>a+l.p,0);
+const lvl=p=>{let i=0;LV.forEach((l,k)=>{if(p>=l[0])i=k});return i};
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('mp:'+s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+let S=null,tab='home',busy=false,unlocked=false;
+
+/* ---------- armazenamento ---------- */
+const REMOTE=!!(CONFIG.URL&&CONFIG.KEY),H={apikey:CONFIG.KEY,Authorization:'Bearer '+CONFIG.KEY,'Content-Type':'application/json'};
+async function load(){
+ if(REMOTE){const r=await fetch(`${CONFIG.URL}/rest/v1/kv?key=eq.estado&select=value`,{headers:H});if(!r.ok)throw 0;const j=await r.json();return j[0]?j[0].value:null}
+ try{return JSON.parse(localStorage.getItem('mp')||'null')}catch(e){return null}}
+async function save(s){
+ if(REMOTE){const r=await fetch(`${CONFIG.URL}/rest/v1/kv`,{method:'POST',headers:{...H,Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({key:'estado',value:s})});if(!r.ok)throw 0}
+ else localStorage.setItem('mp',JSON.stringify(s))}
+// sempre lê o estado mais recente, aplica a mudança e grava (evita pontos duplicados ou saldo errado)
+async function mutate(fn){
+ if(busy)return null;busy=true;let r=null;
+ try{const cur=(await load())||structuredClone(DEF);r=fn(cur);if(r===false||r==null){S=cur;return r}cur.rev=(cur.rev||0)+1;await save(cur);S=cur}
+ catch(e){toast('Ops, não consegui salvar agora. Tente de novo 💗');r=null}
+ finally{busy=false;render()}
+ return r}
+
+/* ---------- efeitos ---------- */
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3800)}
+function hearts(x,y){for(let i=0;i<16;i++){const h=document.createElement('span');h.className='hh';h.textContent=pick(['❤️','💗','💖','✨','🌸','⭐']);h.style.cssText=`left:${x+(Math.random()-.5)*170}px;top:${y}px;animation-delay:${Math.random()*.35}s;font-size:${16+Math.random()*18}px`;document.body.appendChild(h);setTimeout(()=>h.remove(),2400)}}
+const closeM=()=>$('#modal').innerHTML='';
+
+/* ---------- telas ---------- */
+const V={
+home(){const p=bal(S),i=lvl(p),n=LV[i+1],dn=S.log.filter(l=>l.k=='t'&&l.day==today()).length,tot=S.tasks.length,pc=tot?Math.round(dn/tot*100):0,lp=n?Math.round((p-LV[i][0])/(n[0]-LV[i][0])*100):100;
+ return`<div class="card"><p style="margin:0">${esc(S.cfg.msg)}</p></div>
+ <div class="card" style="text-align:center"><small>Seus pontinhos</small><div class="big">${p} ✨</div><span class="lvl">${LV[i][2]} ${LV[i][1]}</span>
+ <div class="bar"><b style="width:${lp}%"></b></div><small>${n?`Faltam ${n[0]-p} pontos para ${n[2]} ${n[1]}`:'Você chegou ao nível máximo! 💍'}</small></div>
+ <div class="card"><h2>Hoje 🌷</h2><div class="bar"><b style="width:${pc}%"></b></div><small>${dn} de ${tot} tarefas concluídas hoje (${pc}%)</small></div>
+ <div style="text-align:center"><button class="btn" data-a="tab" data-v="shop">Ir para a Loja do Nosso Amor 💝</button></div>`},
+tasks(){const d=new Set(S.log.filter(l=>l.k=='t'&&l.day==today()).map(l=>l.ref));
+ return`<div class="card"><h2>Tarefas de hoje ✅</h2><small>As tarefas voltam a valer todos os dias.</small>${S.tasks.map(t=>`<label class="task ${d.has(t.id)?'done':''}" style="margin:0"><input type="checkbox" data-a="chk" data-v="${t.id}" ${d.has(t.id)?'checked disabled':''}><span><span class="tn">${t.e} ${esc(t.n)}</span><br><small>${esc(t.d)}</small></span><span class="pt">+${t.p}</span></label>`).join('')}</div>`},
+shop(){const p=bal(S);return`<div class="card" style="text-align:center"><h2>Loja do Nosso Amor 💝</h2>Você tem <b>${p} ✨</b></div><div class="shop">${S.rewards.map(r=>`<div class="card rw"><div class="em">${r.e}</div><h2>${esc(r.n)}</h2><p class="mut" style="margin:0 0 10px">${esc(r.d)}</p><div class="pt" style="display:inline-block;margin:0 0 12px">${r.p} pontos</div><br><button class="btn" data-a="buy" data-v="${r.id}">Quero essa recompensa! 💗</button></div>`).join('')}</div>`},
+hist(){const L=[...S.log].sort((a,b)=>b.ts-a.ts);
+ return`<div class="card"><h2>Nosso histórico 📜</h2>${L.length?L.map(l=>`<div class="hi"><span style="font-size:1.5rem">${l.e}</span><span><b>${esc(l.n)}</b><br><small>${new Date(l.ts).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})} · ${l.k=='t'?'Tarefa concluída':'Recompensa resgatada'}</small></span><span class="p ${l.p>0?'plus':'minus'}">${l.p>0?'+':''}${l.p}</span>${unlocked?`<button class="del" data-a="undo" data-v="${l.id}" title="Desfazer" style="border:0;background:none;font-size:1.1rem">↩️</button>`:''}</div>`).join(''):'<p class="mut">Ainda não há registros. A primeira conquista está esperando por você! 🌸</p>'}</div>`},
+adm(){const c=S.cfg;
+ if(!c.pin)return`<div class="card"><h2>Criar senha de administrador 🔐</h2><p class="mut">Só quem tem a senha pode mudar tarefas, pontos e recompensas.</p><input id="pin1" type="password" placeholder="Nova senha (mínimo 4 caracteres)"><br><br><button class="btn" data-a="setpin">Salvar senha</button></div>`;
+ if(!unlocked)return`<div class="card"><h2>Área do administrador 🔐</h2><input id="pin" type="password" placeholder="Senha"><br><br><button class="btn" data-a="unlock">Entrar</button></div>`;
+ const row=(g,x)=>`<div class="row" data-g="${g}" data-id="${x.id}"><input data-f="e" value="${esc(x.e)}" aria-label="Emoji"><input data-f="n" value="${esc(x.n)}" aria-label="Nome"><input data-f="p" type="number" min="1" value="${x.p}" aria-label="Pontos"><button class="del" data-a="del" data-g="${g}" data-v="${x.id}" aria-label="Remover">🗑️</button><input data-f="d" value="${esc(x.d)}" aria-label="Descrição" placeholder="Descrição"></div>`;
+ return`<div class="card"><h2>Personalizar 💗</h2><label>Nome</label><input data-c="nome" value="${esc(c.nome)}"><label>Apelido carinhoso</label><input data-c="apelido" value="${esc(c.apelido)}"><label>Mensagem inicial</label><textarea data-c="msg" rows="5">${esc(c.msg)}</textarea></div>
+ <div class="card"><h2>Tarefas ✅</h2>${S.tasks.map(t=>row('tasks',t)).join('')}<button class="btn sec" data-a="add" data-g="tasks">+ Nova tarefa</button></div>
+ <div class="card"><h2>Recompensas 🎁</h2>${S.rewards.map(r=>row('rewards',r)).join('')}<button class="btn sec" data-a="add" data-g="rewards">+ Nova recompensa</button></div>
+ <div style="text-align:center"><button class="btn" data-a="saveall">Salvar alterações 💾</button> <button class="btn sec" data-a="lock">Sair</button></div>`}};
+function render(){if(!S)return;$('#nav').innerHTML=TABS.map(t=>`<button class="${tab==t[0]?'on':''}" data-a="tab" data-v="${t[0]}"><i>${t[1]}</i>${t[2]}</button>`).join('');$('#app').innerHTML=V[tab]()}
+
+/* ---------- ações ---------- */
+function collect(){const o={cfg:{},tasks:{},rewards:{}};document.querySelectorAll('[data-c]').forEach(i=>o.cfg[i.dataset.c]=i.value.trim());document.querySelectorAll('.row').forEach(r=>{const x={};r.querySelectorAll('[data-f]').forEach(i=>x[i.dataset.f]=i.value.trim());o[r.dataset.g][r.dataset.id]=x});return o}
+function apply(cur,o){['nome','apelido','msg'].forEach(k=>{if(o.cfg[k])cur.cfg[k]=o.cfg[k]});
+ ['tasks','rewards'].forEach(g=>cur[g].forEach(it=>{const x=o[g][it.id];if(!x)return;if(x.n)it.n=x.n;if(x.e)it.e=x.e;it.d=x.d||'';const p=parseInt(x.p,10);if(p>=1&&p<=100000)it.p=p}))}
+document.addEventListener('click',async e=>{
+ const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,v=b.dataset.v;
+ if(a=='tab'){tab=v;render();scrollTo(0,0)}
+ if(a=='buy'){const r=S.rewards.find(x=>x.id==v);if(!r)return;$('#modal').innerHTML=`<div class="mod"><div class="card"><div style="font-size:3rem">${r.e}</div><h2>${esc(r.n)}</h2><p>Trocar <b>${r.p} pontos</b> por essa recompensa?</p><button class="btn" data-a="ok" data-v="${r.id}">Sim, quero! 💗</button> <button class="btn sec" data-a="no">Agora não</button></div></div>`}
+ if(a=='no')closeM();
+ if(a=='ok'){closeM();const r0=S.rewards.find(x=>x.id==v);let falta=0;
+  const res=await mutate(cur=>{const r=cur.rewards.find(x=>x.id==v);if(!r)return false;const bl=bal(cur);if(bl<r.p){falta=r.p-bl;return false}cur.log.push({id:Date.now()+'-'+Math.random().toString(36).slice(2,7),k:'r',ref:r.id,n:r.n,e:r.e,p:-r.p,day:today(),ts:Date.now()});return r});
+  if(res){hearts(innerWidth/2,innerHeight*.7);$('#modal').innerHTML=`<div class="mod"><div class="card cel"><div class="em">${res.e}</div><h2>Você resgatou: ${esc(res.n)}! 🎉</h2><p>${esc(S.cfg.apelido)}, mostre esta tela para o seu amor receber o presente. Você merece! 💝</p><button class="btn" data-a="no">Que lindo! ❤️</button></div></div>`}
+  else if(falta)toast(`Quase lá, ${S.cfg.apelido}! Faltam ${falta} pontinhos para essa recompensa. Você consegue! 💗`)}
+ if(a=='setpin'){const p=$('#pin1').value;if(p.length<4)return toast('Use pelo menos 4 caracteres 🔐');const h=await sha(p);await mutate(c=>{if(c.cfg.pin)return false;c.cfg.pin=h;return true});unlocked=true;render()}
+ if(a=='unlock'){if(await sha($('#pin').value)==S.cfg.pin){unlocked=true;render()}else toast('Senha incorreta 🔐')}
+ if(a=='lock'){unlocked=false;render()}
+ if(a=='saveall'){const o=collect();if(await mutate(c=>{apply(c,o);return true}))toast('Tudo salvo! 💾💗')}
+ if(a=='add'){const o=collect(),g=v?v:b.dataset.g;await mutate(c=>{apply(c,o);c[g].push({id:g[0]+Date.now(),e:'⭐',n:g=='tasks'?'Nova tarefa':'Nova recompensa',d:'',p:10});return true})}
+ if(a=='del'){if(!confirm('Remover este item? O histórico antigo é mantido.'))return;const o=collect(),g=b.dataset.g;await mutate(c=>{apply(c,o);c[g]=c[g].filter(x=>x.id!=v);return true})}
+ if(a=='undo'){if(!confirm('Desfazer este registro?'))return;await mutate(c=>{c.log=c.log.filter(l=>l.id!=v);return true})}
+});
+document.addEventListener('change',async e=>{
+ const i=e.target;if(i.dataset.a!='chk'||!i.checked)return;const x=e.target.getBoundingClientRect(),before=lvl(bal(S));let t0=null;i.disabled=true;
+ const ok=await mutate(c=>{const t=c.tasks.find(k=>k.id==i.dataset.v);if(!t||c.log.some(l=>l.k=='t'&&l.ref==t.id&&l.day==today()))return false;t0=t;c.log.push({id:Date.now()+'-'+Math.random().toString(36).slice(2,7),k:'t',ref:t.id,n:t.n,e:t.e,p:t.p,day:today(),ts:Date.now()});return true});
+ if(ok){hearts(x.left+14,x.top);const nl=lvl(bal(S));toast(nl>before?`🎉 Novo nível: ${LV[nl][2]} ${LV[nl][1]}! Estou muito orgulhoso de você!`:`Parabéns, ${S.cfg.apelido}! 🥹❤️ Você conquistou mais alguns pontinhos! ${pick(MSGS)}`)}
+});
+/* ---------- início e sincronização ---------- */
+async function start(){
+ if(!REMOTE){const b=$('#banner');b.style.display='block';b.textContent='Modo teste: os dados ficam só neste aparelho. Configure o Supabase no arquivo para sincronizar os dois celulares.'}
+ try{S=(await load())||structuredClone(DEF);if(!S.log)S=structuredClone(DEF);if(REMOTE&&!(await load()))await save(S);render()}
+ catch(e){$('#app').innerHTML='<div class="card">Não consegui conectar ao banco de dados. Confira a URL e a chave no arquivo e sua internet. 💗</div>'}}
+setInterval(async()=>{if(busy||document.hidden||!S||(tab=='adm'&&unlocked)||$('#modal').innerHTML)return;try{const n=await load();if(n&&n.rev!==S.rev){S=n;render()}}catch(e){}},20000);
+start();
+</script>
+</body>
+</html>
